@@ -13,6 +13,12 @@ namespace Tennis
         private const string SCORE_DEUCE = "Deuce";
         private const string SCORE_FORTY = "Forty";
         private const string SCORE_SEPARATOR = "-";
+        private const string SCORE_WIN_PLAYER1 = "Win for player1";
+        private const string SCORE_WIN_PLAYER2 = "Win for player2";
+        private const string SCORE_ADV_PLAYER1 = "Advantage player1";
+        private const string SCORE_ADV_PLAYER2 = "Advantage player2";
+
+        private const int MIN_POINTS_UP_TO_WIN = 2;
 
         private int playerOnePoint;
         private int playerTwoPoint;
@@ -53,40 +59,65 @@ namespace Tennis
             {
                 if (playerTwoPoint >= POINT_FORTY)
                 {
-                    score = "Advantage player1";
+                    score = SCORE_ADV_PLAYER1;
                 }
                 else
                 {
-                    playerOneResult = GetPlayerOneResult();
-                    playerTwoResult = GetPlayerTwoResult();
-
-                    score = playerOneResult + SCORE_SEPARATOR + playerTwoResult;
-                }               
+                    score = BuildPartialScore();
+                }
             }
 
             if (IsPlayerTwoWinning())
             {
                 if (playerOnePoint >= POINT_FORTY)
                 {
-                    score = "Advantage player2";
+                    score = SCORE_ADV_PLAYER2;
                 }
                 else
                 {
-                    playerOneResult = GetPlayerOneResult();
-                    playerTwoResult = GetPlayerTwoResult();
-
-                    score = playerOneResult + SCORE_SEPARATOR + playerTwoResult;
+                    score = BuildPartialScore();
                 }
             }
 
-            if (playerOnePoint >= 4 && playerTwoPoint >= 0 && (playerOnePoint - playerTwoPoint) >= 2)
+            if (IsPlayerOneInDeuce() && IsPlayerOneEnoughPointsUpToWin())
             {
-                score = "Win for player1";
+                score = SCORE_WIN_PLAYER1;
             }
-            if (playerTwoPoint >= 4 && playerOnePoint >= 0 && (playerTwoPoint - playerOnePoint) >= 2)
+
+            if (IsPlayerTwoInDeuce() && IsPlayerTwoEnoughPointsUpToWin())
             {
-                score = "Win for player2";
+                score = SCORE_WIN_PLAYER2;
             }
+            return score;
+        }
+
+        private bool IsPlayerTwoEnoughPointsUpToWin()
+        {
+            return (playerTwoPoint - playerOnePoint) >= MIN_POINTS_UP_TO_WIN;
+        }
+
+        private bool IsPlayerOneEnoughPointsUpToWin()
+        {
+            return (playerOnePoint - playerTwoPoint) >= MIN_POINTS_UP_TO_WIN;
+        }
+
+        private bool IsPlayerTwoInDeuce()
+        {
+            return playerTwoPoint > POINT_FORTY;
+        }
+
+        private bool IsPlayerOneInDeuce()
+        {
+            return playerOnePoint > POINT_FORTY;
+        }
+
+        private string BuildPartialScore()
+        {
+            string score;
+            playerOneResult = GetPlayerOneResult();
+            playerTwoResult = GetPlayerTwoResult();
+
+            score = playerOneResult + SCORE_SEPARATOR + playerTwoResult;
             return score;
         }
 
