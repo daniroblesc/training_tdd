@@ -38,13 +38,7 @@ namespace Tennis
             {
                 if (playerOnePoint < POINT_FORTY)
                 {
-                    if (playerOnePoint == POINT_LOVE)
-                        score = SCORE_LOVE;
-                    if (playerOnePoint == POINT_FIFTEEN)
-                        score = SCORE_FIFTEEN;
-                    if (playerOnePoint == POINT_THIRTY)
-                        score = SCORE_THIRTY;
-
+                    score = GetPlayerOneResult();
                     score += SCORE_SEPARATOR;
                     score += "All";
                 }
@@ -63,19 +57,8 @@ namespace Tennis
                 }
                 else
                 {
-                    if (playerOnePoint == POINT_FIFTEEN)
-                        playerOneResult = SCORE_FIFTEEN;
-                    if (playerOnePoint == POINT_THIRTY)
-                        playerOneResult = SCORE_THIRTY;
-                    if (playerOnePoint == POINT_FORTY)
-                        playerOneResult = SCORE_FORTY;
-
-                    if (playerTwoPoint == POINT_LOVE)
-                        playerTwoResult = SCORE_LOVE;
-                    if (playerTwoPoint == POINT_FIFTEEN)
-                        playerTwoResult = SCORE_FIFTEEN;
-                    if (playerTwoPoint == POINT_THIRTY)
-                        playerTwoResult = SCORE_THIRTY;
+                    playerOneResult = GetPlayerOneResult();
+                    playerTwoResult = GetPlayerTwoResult();
 
                     score = playerOneResult + SCORE_SEPARATOR + playerTwoResult;
                 }               
@@ -89,19 +72,8 @@ namespace Tennis
                 }
                 else
                 {
-                    if (playerTwoPoint == POINT_FIFTEEN)
-                        playerTwoResult = SCORE_FIFTEEN;
-                    if (playerTwoPoint == POINT_THIRTY)
-                        playerTwoResult = SCORE_THIRTY;
-                    if (playerTwoPoint == POINT_FORTY)
-                        playerTwoResult = SCORE_FORTY;
-
-                    if (playerOnePoint == POINT_LOVE)
-                        playerOneResult = SCORE_LOVE;
-                    if (playerOnePoint == POINT_FIFTEEN)
-                        playerOneResult = SCORE_FIFTEEN;
-                    if (playerOnePoint == POINT_THIRTY)
-                        playerOneResult = SCORE_THIRTY;
+                    playerOneResult = GetPlayerOneResult();
+                    playerTwoResult = GetPlayerTwoResult();
 
                     score = playerOneResult + SCORE_SEPARATOR + playerTwoResult;
                 }
@@ -115,6 +87,38 @@ namespace Tennis
             {
                 score = "Win for player2";
             }
+            return score;
+        }
+
+        private string GetPlayerOneResult()
+        {
+            var score = "";
+
+            if (playerOnePoint == POINT_LOVE)
+                score = SCORE_LOVE;
+            if (playerOnePoint == POINT_FIFTEEN)
+                score = SCORE_FIFTEEN;
+            if (playerOnePoint == POINT_THIRTY)
+                score = SCORE_THIRTY;
+            if (playerOnePoint == POINT_FORTY)
+                score = SCORE_FORTY;
+
+            return score;
+        }
+
+        private string GetPlayerTwoResult()
+        {
+            var score = "";
+
+            if (playerTwoPoint == POINT_LOVE)
+                score = SCORE_LOVE;
+            if (playerTwoPoint == POINT_FIFTEEN)
+                score = SCORE_FIFTEEN;
+            if (playerTwoPoint == POINT_THIRTY)
+                score = SCORE_THIRTY;
+            if (playerTwoPoint == POINT_FORTY)
+                score = SCORE_FORTY;
+
             return score;
         }
 
