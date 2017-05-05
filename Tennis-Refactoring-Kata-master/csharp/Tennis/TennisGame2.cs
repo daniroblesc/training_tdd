@@ -55,7 +55,7 @@ namespace Tennis
 
             }
 
-            if (playerOnePoint > POINT_LOVE && playerTwoPoint == POINT_LOVE)
+            if (isPlayerOneWinning() && playerOnePoint <= POINT_FORTY)
             {
                 if (playerOnePoint == POINT_FIFTEEN)
                     playerOneResult = SCORE_FIFTEEN;
@@ -64,43 +64,27 @@ namespace Tennis
                 if (playerOnePoint == POINT_FORTY)
                     playerOneResult = SCORE_FORTY;
 
-                playerTwoResult = SCORE_LOVE;
-                score = playerOneResult + SCORE_SEPARATOR + playerTwoResult;
-            }
-
-            if (isPlayerOneWinning() && playerOnePoint <= POINT_FORTY)
-            {
-                if (playerOnePoint == POINT_THIRTY)
-                    playerOneResult = SCORE_THIRTY;
-                if (playerOnePoint == POINT_FORTY)
-                    playerOneResult = SCORE_FORTY;
+                if (playerTwoPoint == POINT_LOVE)
+                    playerTwoResult = SCORE_LOVE;
                 if (playerTwoPoint == POINT_FIFTEEN)
                     playerTwoResult = SCORE_FIFTEEN;
                 if (playerTwoPoint == POINT_THIRTY)
                     playerTwoResult = SCORE_THIRTY;
+
                 score = playerOneResult + SCORE_SEPARATOR + playerTwoResult;
             }
-
-            if (playerTwoPoint > POINT_LOVE && playerOnePoint == POINT_LOVE)
-            {
-                if (playerTwoPoint == POINT_FIFTEEN)
-                    playerTwoResult = SCORE_FIFTEEN;
-                if (playerTwoPoint == POINT_THIRTY)
-                    playerTwoResult = SCORE_THIRTY;
-                if (playerTwoPoint == POINT_FORTY)
-                    playerTwoResult = SCORE_FORTY;
-
-                playerOneResult = SCORE_LOVE;
-                score = playerOneResult + SCORE_SEPARATOR + playerTwoResult;
-            }
-
             
             if (isPlayerTwoWinning() && playerTwoPoint <= POINT_FORTY)
             {
+                if (playerTwoPoint == POINT_FIFTEEN)
+                    playerTwoResult = SCORE_FIFTEEN;
                 if (playerTwoPoint == POINT_THIRTY)
                     playerTwoResult = SCORE_THIRTY;
                 if (playerTwoPoint == POINT_FORTY)
                     playerTwoResult = SCORE_FORTY;
+
+                if (playerOnePoint == POINT_LOVE)
+                    playerOneResult = SCORE_LOVE;
                 if (playerOnePoint == POINT_FIFTEEN)
                     playerOneResult = SCORE_FIFTEEN;
                 if (playerOnePoint == POINT_THIRTY)
