@@ -34,7 +34,7 @@ namespace Tennis
         public string GetScore()
         {
             var score = "";
-            if (isGameInDraw())
+            if (IsGameInDraw())
             {
                 if (playerOnePoint < POINT_FORTY)
                 {
@@ -55,51 +55,56 @@ namespace Tennis
 
             }
 
-            if (isPlayerOneWinning() && playerOnePoint <= POINT_FORTY)
+            if (IsPlayerOneWinning())
             {
-                if (playerOnePoint == POINT_FIFTEEN)
-                    playerOneResult = SCORE_FIFTEEN;
-                if (playerOnePoint == POINT_THIRTY)
-                    playerOneResult = SCORE_THIRTY;
-                if (playerOnePoint == POINT_FORTY)
-                    playerOneResult = SCORE_FORTY;
+                if (playerTwoPoint >= POINT_FORTY)
+                {
+                    score = "Advantage player1";
+                }
+                else
+                {
+                    if (playerOnePoint == POINT_FIFTEEN)
+                        playerOneResult = SCORE_FIFTEEN;
+                    if (playerOnePoint == POINT_THIRTY)
+                        playerOneResult = SCORE_THIRTY;
+                    if (playerOnePoint == POINT_FORTY)
+                        playerOneResult = SCORE_FORTY;
 
-                if (playerTwoPoint == POINT_LOVE)
-                    playerTwoResult = SCORE_LOVE;
-                if (playerTwoPoint == POINT_FIFTEEN)
-                    playerTwoResult = SCORE_FIFTEEN;
-                if (playerTwoPoint == POINT_THIRTY)
-                    playerTwoResult = SCORE_THIRTY;
+                    if (playerTwoPoint == POINT_LOVE)
+                        playerTwoResult = SCORE_LOVE;
+                    if (playerTwoPoint == POINT_FIFTEEN)
+                        playerTwoResult = SCORE_FIFTEEN;
+                    if (playerTwoPoint == POINT_THIRTY)
+                        playerTwoResult = SCORE_THIRTY;
 
-                score = playerOneResult + SCORE_SEPARATOR + playerTwoResult;
-            }
-            
-            if (isPlayerTwoWinning() && playerTwoPoint <= POINT_FORTY)
-            {
-                if (playerTwoPoint == POINT_FIFTEEN)
-                    playerTwoResult = SCORE_FIFTEEN;
-                if (playerTwoPoint == POINT_THIRTY)
-                    playerTwoResult = SCORE_THIRTY;
-                if (playerTwoPoint == POINT_FORTY)
-                    playerTwoResult = SCORE_FORTY;
-
-                if (playerOnePoint == POINT_LOVE)
-                    playerOneResult = SCORE_LOVE;
-                if (playerOnePoint == POINT_FIFTEEN)
-                    playerOneResult = SCORE_FIFTEEN;
-                if (playerOnePoint == POINT_THIRTY)
-                    playerOneResult = SCORE_THIRTY;
-                score = playerOneResult + SCORE_SEPARATOR + playerTwoResult;
+                    score = playerOneResult + SCORE_SEPARATOR + playerTwoResult;
+                }               
             }
 
-            if (playerOnePoint > playerTwoPoint && playerTwoPoint >= POINT_FORTY)
+            if (IsPlayerTwoWinning())
             {
-                score = "Advantage player1";
-            }
+                if (playerOnePoint >= POINT_FORTY)
+                {
+                    score = "Advantage player2";
+                }
+                else
+                {
+                    if (playerTwoPoint == POINT_FIFTEEN)
+                        playerTwoResult = SCORE_FIFTEEN;
+                    if (playerTwoPoint == POINT_THIRTY)
+                        playerTwoResult = SCORE_THIRTY;
+                    if (playerTwoPoint == POINT_FORTY)
+                        playerTwoResult = SCORE_FORTY;
 
-            if (playerTwoPoint > playerOnePoint && playerOnePoint >= POINT_FORTY)
-            {
-                score = "Advantage player2";
+                    if (playerOnePoint == POINT_LOVE)
+                        playerOneResult = SCORE_LOVE;
+                    if (playerOnePoint == POINT_FIFTEEN)
+                        playerOneResult = SCORE_FIFTEEN;
+                    if (playerOnePoint == POINT_THIRTY)
+                        playerOneResult = SCORE_THIRTY;
+
+                    score = playerOneResult + SCORE_SEPARATOR + playerTwoResult;
+                }
             }
 
             if (playerOnePoint >= 4 && playerTwoPoint >= 0 && (playerOnePoint - playerTwoPoint) >= 2)
@@ -113,17 +118,17 @@ namespace Tennis
             return score;
         }
 
-        private bool isPlayerTwoWinning()
+        private bool IsPlayerTwoWinning()
         {
             return playerTwoPoint > playerOnePoint;
         }
 
-        private bool isPlayerOneWinning()
+        private bool IsPlayerOneWinning()
         {
             return playerOnePoint > playerTwoPoint;
         }
 
-        private bool isGameInDraw()
+        private bool IsGameInDraw()
         {
             return playerOnePoint == playerTwoPoint;
         }
