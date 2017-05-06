@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Tennis
 {
     public class TennisGame2 : ITennisGame
@@ -29,9 +31,18 @@ namespace Tennis
         private string playerOneName;
         private string playerTwoName;
 
+        private Dictionary<int, string> scores = new Dictionary<int, string>
+        {
+            {POINT_LOVE, SCORE_LOVE },
+            {POINT_FIFTEEN, SCORE_FIFTEEN },
+            {POINT_THIRTY, SCORE_THIRTY },
+            {POINT_FORTY, SCORE_FORTY }
+        };
+
         public TennisGame2(string playerOneName, string playerTwoName)
         {
             playerOnePoint = 0;
+            playerTwoPoint = 0;
 
             this.playerOneName = playerOneName;
             this.playerTwoName = playerTwoName;
@@ -40,6 +51,7 @@ namespace Tennis
         public string GetScore()
         {
             var score = "";
+
             if (IsGameInDraw())
             {
                 if (playerOnePoint >= POINT_FORTY)
@@ -121,34 +133,12 @@ namespace Tennis
 
         private string GetPlayerOneResult()
         {
-            var score = "";
-
-            if (playerOnePoint == POINT_LOVE)
-                score = SCORE_LOVE;
-            if (playerOnePoint == POINT_FIFTEEN)
-                score = SCORE_FIFTEEN;
-            if (playerOnePoint == POINT_THIRTY)
-                score = SCORE_THIRTY;
-            if (playerOnePoint == POINT_FORTY)
-                score = SCORE_FORTY;
-
-            return score;
+            return (scores[playerOnePoint]);
         }
 
         private string GetPlayerTwoResult()
         {
-            var score = "";
-
-            if (playerTwoPoint == POINT_LOVE)
-                score = SCORE_LOVE;
-            if (playerTwoPoint == POINT_FIFTEEN)
-                score = SCORE_FIFTEEN;
-            if (playerTwoPoint == POINT_THIRTY)
-                score = SCORE_THIRTY;
-            if (playerTwoPoint == POINT_FORTY)
-                score = SCORE_FORTY;
-
-            return score;
+            return (scores[playerTwoPoint]);
         }
 
         private bool IsPlayerTwoWinning()
