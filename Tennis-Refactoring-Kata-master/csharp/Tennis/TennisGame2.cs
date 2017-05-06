@@ -42,22 +42,25 @@ namespace Tennis
             var score = "";
             if (IsGameInDraw())
             {
-                if (playerOnePoint < POINT_FORTY)
+                if (playerOnePoint >= POINT_FORTY)
+                {
+                    score = SCORE_DEUCE;
+                }
+                else
                 {
                     score = GetPlayerOneResult();
                     score += SCORE_SEPARATOR;
                     score += "All";
                 }
-                else
-                {
-                    score = SCORE_DEUCE;
-                }
-
             }
 
             if (IsPlayerOneWinning())
             {
-                if (playerTwoPoint >= POINT_FORTY)
+                if (IsPlayerOneInDeuce() && IsPlayerOneEnoughPointsUpToWin())
+                {
+                    score = SCORE_WIN_PLAYER1;
+                }
+                else if (playerTwoPoint >= POINT_FORTY)
                 {
                     score = SCORE_ADV_PLAYER1;
                 }
@@ -69,7 +72,11 @@ namespace Tennis
 
             if (IsPlayerTwoWinning())
             {
-                if (playerOnePoint >= POINT_FORTY)
+                if (IsPlayerTwoInDeuce() && IsPlayerTwoEnoughPointsUpToWin())
+                {
+                    score = SCORE_WIN_PLAYER2;
+                }
+                else if (playerOnePoint >= POINT_FORTY)
                 {
                     score = SCORE_ADV_PLAYER2;
                 }
@@ -78,37 +85,28 @@ namespace Tennis
                     score = BuildPartialScore();
                 }
             }
-
-            if (IsPlayerOneInDeuce() && IsPlayerOneEnoughPointsUpToWin())
-            {
-                score = SCORE_WIN_PLAYER1;
-            }
-
-            if (IsPlayerTwoInDeuce() && IsPlayerTwoEnoughPointsUpToWin())
-            {
-                score = SCORE_WIN_PLAYER2;
-            }
+            
             return score;
         }
 
         private bool IsPlayerTwoEnoughPointsUpToWin()
         {
-            return (playerTwoPoint - playerOnePoint) >= MIN_POINTS_UP_TO_WIN;
+            return ((playerTwoPoint - playerOnePoint) >= MIN_POINTS_UP_TO_WIN);
         }
 
         private bool IsPlayerOneEnoughPointsUpToWin()
         {
-            return (playerOnePoint - playerTwoPoint) >= MIN_POINTS_UP_TO_WIN;
+            return ((playerOnePoint - playerTwoPoint) >= MIN_POINTS_UP_TO_WIN);
         }
 
         private bool IsPlayerTwoInDeuce()
         {
-            return playerTwoPoint > POINT_FORTY;
+            return (playerTwoPoint > POINT_FORTY);
         }
 
         private bool IsPlayerOneInDeuce()
         {
-            return playerOnePoint > POINT_FORTY;
+            return (playerOnePoint > POINT_FORTY);
         }
 
         private string BuildPartialScore()
@@ -155,17 +153,17 @@ namespace Tennis
 
         private bool IsPlayerTwoWinning()
         {
-            return playerTwoPoint > playerOnePoint;
+            return (playerTwoPoint > playerOnePoint);
         }
 
         private bool IsPlayerOneWinning()
         {
-            return playerOnePoint > playerTwoPoint;
+            return (playerOnePoint > playerTwoPoint);
         }
 
         private bool IsGameInDraw()
         {
-            return playerOnePoint == playerTwoPoint;
+            return (playerOnePoint == playerTwoPoint);
         }
 
         private void P1Score()
