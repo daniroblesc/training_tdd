@@ -15,6 +15,7 @@ namespace Tennis
         private const string SCORE_DEUCE = "Deuce";
         private const string SCORE_FORTY = "Forty";
         private const string SCORE_SEPARATOR = "-";
+        private const string SCORE_ALL = "All";
         private const string SCORE_WIN_PLAYER1 = "Win for player1";
         private const string SCORE_WIN_PLAYER2 = "Win for player2";
         private const string SCORE_ADV_PLAYER1 = "Advantage player1";
@@ -54,50 +55,74 @@ namespace Tennis
 
             if (IsGameInDraw())
             {
-                if (playerOnePoint >= POINT_FORTY)
-                {
-                    score = SCORE_DEUCE;
-                }
-                else
-                {
-                    score = GetPlayerOneResult();
-                    score += SCORE_SEPARATOR;
-                    score += "All";
-                }
+                score = GetScoreGameInDraw();
             }
 
             if (IsPlayerOneWinning())
             {
-                if (IsPlayerOneInDeuce() && IsPlayerOneEnoughPointsUpToWin())
-                {
-                    score = SCORE_WIN_PLAYER1;
-                }
-                else if (playerTwoPoint >= POINT_FORTY)
-                {
-                    score = SCORE_ADV_PLAYER1;
-                }
-                else
-                {
-                    score = BuildPartialScore();
-                }
+                score = GetScorePlayerOneWinning();
             }
 
             if (IsPlayerTwoWinning())
             {
-                if (IsPlayerTwoInDeuce() && IsPlayerTwoEnoughPointsUpToWin())
-                {
-                    score = SCORE_WIN_PLAYER2;
-                }
-                else if (playerOnePoint >= POINT_FORTY)
-                {
-                    score = SCORE_ADV_PLAYER2;
-                }
-                else
-                {
-                    score = BuildPartialScore();
-                }
+                score = GetScorePlayerTwoWinning();
             }
-            
+
+            return score;
+        }
+
+        private string GetScorePlayerTwoWinning()
+        {
+            string score;
+            if (IsPlayerTwoInDeuce() && IsPlayerTwoEnoughPointsUpToWin())
+            {
+                score = SCORE_WIN_PLAYER2;
+            }
+            else if (playerOnePoint >= POINT_FORTY)
+            {
+                score = SCORE_ADV_PLAYER2;
+            }
+            else
+            {
+                score = BuildPartialScore();
+            }
+
+            return score;
+        }
+
+        private string GetScorePlayerOneWinning()
+        {
+            string score;
+            if (IsPlayerOneInDeuce() && IsPlayerOneEnoughPointsUpToWin())
+            {
+                score = SCORE_WIN_PLAYER1;
+            }
+            else if (playerTwoPoint >= POINT_FORTY)
+            {
+                score = SCORE_ADV_PLAYER1;
+            }
+            else
+            {
+                score = BuildPartialScore();
+            }
+
+            return score;
+        }
+
+        private string GetScoreGameInDraw()
+        {
+            string score;
+            if (playerOnePoint >= POINT_FORTY)
+            {
+                score = SCORE_DEUCE;
+            }
+            else
+            {
+                score = GetPlayerOneResult();
+                score += SCORE_SEPARATOR;
+                score += SCORE_ALL;
+            }
+
             return score;
         }
 
