@@ -124,8 +124,10 @@ public:
 		return true;
 	}
 
-	void ExecuteCommand()
+	bool ExecuteCommand()
 	{
+		bool result = false;
+
 		char command = commands.front();
 		commands.pop();
 
@@ -134,6 +136,7 @@ public:
 			if (currentDirection.isNorth())
 			{
 				currentPoint.incY();
+				result = true;
 			}
 		}
 		else if (command == 'b')
@@ -141,8 +144,12 @@ public:
 			if (currentDirection.isNorth())
 			{
 				currentPoint.decY();
+				result = true;
 			}
 		}
+
+
+		return result;
 	}
 
 

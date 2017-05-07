@@ -75,12 +75,13 @@ TEST_F(MarsRoverTest, GivenRoverInInitialPositionAndOrientedToNorth_WhenMoveForw
 
 	commands.push('f');
 	theRover->SendCommands(commands);
-	theRover->ExecuteCommand();
+	bool commandSupported = theRover->ExecuteCommand();
 
 	Point pointAfterCommand = theRover->getPoint();
 
 	bool result = (pointExpected == pointAfterCommand);
 
+	EXPECT_EQ(commandSupported, true);
 	EXPECT_EQ(result, true);
 }
 
@@ -92,14 +93,36 @@ TEST_F(MarsRoverTest, GivenRoverInInitialPositionAndOrientedToNorth_WhenMoveBack
 
 	commands.push('b');
 	theRover->SendCommands(commands);
-	theRover->ExecuteCommand();
+	bool commandSupported = theRover->ExecuteCommand();
 
 	Point pointAfterCommand = theRover->getPoint();
 
 	bool result = (pointExpected == pointAfterCommand);
 
+	EXPECT_EQ(commandSupported, true);
 	EXPECT_EQ(result, true);
 }
 
+// Implement commands that turn the rover left / right(l, r).
+TEST_F(MarsRoverTest, GivenRoverInInitialPositionAndOrientedToNorth_WhenMoveLeft_ThenDirectionIsWest)
+{
+	Direction directionExpected(false, false, false, true);
+
+	commands.push('l');
+	theRover->SendCommands(commands);
+	bool commandSupported = theRover->ExecuteCommand();
+
+	Direction directionAfterCommand = theRover->getDirection();
+
+	bool result = (directionExpected == directionAfterCommand);
+
+	EXPECT_EQ(commandSupported, true);
+	EXPECT_EQ(result, true);
+}
+
+TEST_F(MarsRoverTest, GivenRoverInInitialPositionAndOrientedToNorth_WhenMoveRight_ThenDirectionIsEast)
+{
+
+}
 
 }  // namespace
