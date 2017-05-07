@@ -8,14 +8,16 @@
 // You are given the initial starting point (x,y) of a rover and the direction
 // (N,S,E,W) it is facing.
 
-TEST(testMath, myMarsRoverTest)
+TEST(testMarsRover, initialSetup)
 {
-	Point startingPoint(0, 0);
+	Point startingPoint;
 	Direction startingDirectionToTheNorth(1, 0, 0, 0);
-
+	
 	MarsRover theRover(startingPoint, startingDirectionToTheNorth);
 
-	EXPECT_EQ(theRover.getStartingPoint(), startingPoint);
-	EXPECT_EQ(theRover.getStartingDirection(), startingDirectionToTheNorth);
+	bool result = (theRover.getStartingPoint() == startingPoint);
+	EXPECT_EQ(result, true);
 
+	result = (theRover.getStartingDirection() == startingDirectionToTheNorth);
+	EXPECT_EQ(result, true);
 }

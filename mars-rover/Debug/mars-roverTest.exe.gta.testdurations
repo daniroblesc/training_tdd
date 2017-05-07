@@ -3,5 +3,6 @@
   <Executable>C:\Users\roblesca\Documents\GitHub\training_tdd\mars-rover\Debug\mars-roverTest.exe</Executable>
   <TestDurations>
     <TestDuration Test="testMath.myMarsRoverTest" Duration="1" />
+    <TestDuration Test="testMarsRover.initialSetup" Duration="1" />
   </TestDurations>
 </GtaTestDurations>
