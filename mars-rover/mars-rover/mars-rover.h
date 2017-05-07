@@ -90,6 +90,14 @@ public:
 		return (N && !S && !E && !W);
 	}
 
+	void setWest()
+	{
+		N = false;
+		S = false;
+		E = false;
+		W = true;
+	}
+
 
 private:
 	bool N;
@@ -144,6 +152,14 @@ public:
 			if (currentDirection.isNorth())
 			{
 				currentPoint.decY();
+				result = true;
+			}
+		}
+		else if (command == 'l')
+		{
+			if (currentDirection.isNorth())
+			{
+				currentDirection.setWest();
 				result = true;
 			}
 		}
