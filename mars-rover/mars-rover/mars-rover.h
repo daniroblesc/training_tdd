@@ -101,9 +101,16 @@ public:
 		return startingDirection;
 	}
 
+	bool SendCommands(std::vector<char>& commands)
+	{
+		this->commands = commands;
+		return true;
+	}
+
 
 private:
 
 	Point startingPoint;
 	Direction startingDirection;
+	std::vector<char> commands;
 };
