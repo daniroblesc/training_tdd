@@ -67,7 +67,7 @@ TEST_F(MarsRoverTest, receiveCommands)
 }
 
 // Implement commands that move the rover forward/backward (f,b).
-TEST_F(MarsRoverTest, moveForward)
+TEST_F(MarsRoverTest, GivenRoverInInitialPositionAndOrientedToNorth_WhenMoveForward_ThenYCoordIsIncremented)
 {
 	Point pointExpected(0, 1); // Initial position is (0,0) and initial direction 
 							   // is North so a forward movement will increase Y 
@@ -84,10 +84,10 @@ TEST_F(MarsRoverTest, moveForward)
 	EXPECT_EQ(result, true);
 }
 
-TEST_F(MarsRoverTest, moveBackward)
+TEST_F(MarsRoverTest, GivenRoverInInitialPositionAndOrientedToNorth_WhenMoveBackward_ThenYCoordIsDecremented)
 {
 	Point pointExpected(0, -1); // Initial position is (0,0) and initial direction 
-							    // is North so a forward movement will decrease Y 
+							    // is North so a backward movement will decrease Y 
 							    // to -1
 
 	commands.push('b');

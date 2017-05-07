@@ -9,5 +9,9 @@
     <TestDuration Test="MarsRoverTest.receiveCommands" Duration="1" />
     <TestDuration Test="MarsRoverTest.moveForward" Duration="1" />
     <TestDuration Test="MarsRoverTest.moveBackward" Duration="1" />
+    <TestDuration Test="MarsRoverTest.GivenRoverInInitialPositionAndFacedToNorth_WhenMoveForward_ThenYCoordIsIncremented" Duration="1" />
+    <TestDuration Test="MarsRoverTest.GivenRoverInInitialPositionAndFacedToNorth_WhenMoveBackward_ThenYCoordIsDecremented" Duration="1" />
+    <TestDuration Test="MarsRoverTest.GivenRoverInInitialPositionAndOrientedToNorth_WhenMoveForward_ThenYCoordIsIncremented" Duration="1" />
+    <TestDuration Test="MarsRoverTest.GivenRoverInInitialPositionAndOrientedToNorth_WhenMoveBackward_ThenYCoordIsDecremented" Duration="1" />
   </TestDurations>
 </GtaTestDurations>
