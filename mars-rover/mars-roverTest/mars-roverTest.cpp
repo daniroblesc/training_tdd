@@ -15,6 +15,7 @@ protected:
 	Point startingPoint;
 	Direction startingDirection;
 	MarsRover* theRover;
+	std::vector<char> commands;
 
 
 	MarsRoverTest() {
@@ -58,6 +59,14 @@ TEST_F(MarsRoverTest, initialSetup)
 	EXPECT_EQ(result, true);
 }
 
+// The rover receives a character array of commands.
+TEST_F(MarsRoverTest, receiveCommands)
+{
+	commands.push_back('a');
+	commands.push_back('b');
 
+	bool result = theRover->SendCommands(commands);
+	EXPECT_EQ(result, true);
+}
 
 }  // namespace
