@@ -106,7 +106,7 @@ TEST_F(MarsRoverTest, GivenRoverInInitialPositionAndOrientedToNorth_WhenMoveBack
 // Implement commands that turn the rover left / right(l, r).
 TEST_F(MarsRoverTest, GivenRoverInInitialPositionAndOrientedToNorth_WhenMoveLeft_ThenDirectionIsWest)
 {
-	Direction directionExpected(false, false, false, true);
+	Direction directionExpected(Direction::WEST);
 
 	commands.push('l');
 	theRover->SendCommands(commands);
@@ -122,6 +122,18 @@ TEST_F(MarsRoverTest, GivenRoverInInitialPositionAndOrientedToNorth_WhenMoveLeft
 
 TEST_F(MarsRoverTest, GivenRoverInInitialPositionAndOrientedToNorth_WhenMoveRight_ThenDirectionIsEast)
 {
+	Direction directionExpected(Direction::EAST);
+
+	commands.push('r');
+	theRover->SendCommands(commands);
+	bool commandSupported = theRover->ExecuteCommand();
+
+	Direction directionAfterCommand = theRover->getDirection();
+
+	bool result = (directionExpected == directionAfterCommand);
+
+	EXPECT_EQ(commandSupported, true);
+	EXPECT_EQ(result, true);
 
 }
 

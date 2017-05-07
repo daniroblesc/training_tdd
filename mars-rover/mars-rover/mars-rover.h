@@ -61,18 +61,26 @@ public:
 
 	Direction()
 	{
-		cardinals.insert(std::make_pair(NORTH, true));
-		cardinals.insert(std::make_pair(SOUTH, false));
-		cardinals.insert(std::make_pair(EAST, false));
-		cardinals.insert(std::make_pair(WEST, false));
+		initialize();
+
+		cardinals[NORTH] = true;
 	}
 
 	Direction(const bool N, const bool S, const bool E, const bool W)
 	{
-		cardinals.insert(std::make_pair(NORTH, N));
-		cardinals.insert(std::make_pair(SOUTH, S));
-		cardinals.insert(std::make_pair(EAST, E));
-		cardinals.insert(std::make_pair(WEST, W));
+		initialize();
+
+		cardinals[NORTH] = N;
+		cardinals[SOUTH] = S;
+		cardinals[EAST] = E;
+		cardinals[WEST] = W;
+	}
+
+	Direction(const CardinalPoints direction)
+	{
+		initialize();
+
+		cardinals[direction] = true;
 	}
 
 	Direction& operator= (const Direction &other)
@@ -99,7 +107,8 @@ public:
 
 	void setDirection(const CardinalPoints newDirection)
 	{
-		resetDirection();
+		reset();
+
 		cardinals[newDirection] = true;
 	}
 
@@ -108,7 +117,7 @@ private:
 
 	std::map<CardinalPoints, bool> cardinals;
 
-	void resetDirection()
+	void reset()
 	{
 		std::map<CardinalPoints, bool>::iterator it;
 		it = cardinals.begin();
@@ -118,6 +127,15 @@ private:
 			it->second = false;
 			++it;
 		}
+	}
+
+	void initialize()
+	{
+		cardinals.clear();
+		cardinals.insert(std::make_pair(NORTH, false));
+		cardinals.insert(std::make_pair(SOUTH, false));
+		cardinals.insert(std::make_pair(EAST, false));
+		cardinals.insert(std::make_pair(WEST, false));
 	}
 };
 
@@ -175,6 +193,14 @@ public:
 			if (currentDirection.isNorth())
 			{
 				currentDirection.setDirection(Direction::WEST);
+				result = true;
+			}
+		}
+		else if (command == 'r')
+		{
+			if (currentDirection.isNorth())
+			{
+				currentDirection.setDirection(Direction::EAST);
 				result = true;
 			}
 		}
