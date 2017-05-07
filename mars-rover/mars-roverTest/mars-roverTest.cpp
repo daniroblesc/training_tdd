@@ -86,6 +86,19 @@ TEST_F(MarsRoverTest, moveForward)
 
 TEST_F(MarsRoverTest, moveBackward)
 {
+	Point pointExpected(0, -1); // Initial position is (0,0) and initial direction 
+							    // is North so a forward movement will decrease Y 
+							    // to -1
+
+	commands.push('b');
+	theRover->SendCommands(commands);
+	theRover->ExecuteCommand();
+
+	Point pointAfterCommand = theRover->getPoint();
+
+	bool result = (pointExpected == pointAfterCommand);
+
+	EXPECT_EQ(result, true);
 }
 
 

@@ -35,6 +35,11 @@ public:
 		y++;
 	}
 
+	void decY()
+	{
+		y--;
+	}
+
 
 private:
 
@@ -129,6 +134,13 @@ public:
 			if (currentDirection.isNorth())
 			{
 				currentPoint.incY();
+			}
+		}
+		else if (command == 'b')
+		{
+			if (currentDirection.isNorth())
+			{
+				currentPoint.decY();
 			}
 		}
 	}
