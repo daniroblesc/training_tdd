@@ -15,15 +15,11 @@ protected:
 	Point startingPoint;
 	Direction startingDirection;
 	MarsRover* theRover;
-	std::vector<char> commands;
+	std::queue<char> commands;
 
 
 	MarsRoverTest() {
 		// You can do set-up work for each test here.
-
-		Direction startingDirectionToTheNorth(1, 0, 0, 0);
-		startingDirection = startingDirectionToTheNorth;
-
 		theRover = new MarsRover(startingPoint, startingDirection);
 	}
 
@@ -62,8 +58,8 @@ TEST_F(MarsRoverTest, initialSetup)
 // The rover receives a character array of commands.
 TEST_F(MarsRoverTest, receiveCommands)
 {
-	commands.push_back('a');
-	commands.push_back('b');
+	commands.push('a');
+	commands.push('b');
 
 	bool result = theRover->SendCommands(commands);
 
@@ -73,10 +69,11 @@ TEST_F(MarsRoverTest, receiveCommands)
 // Implement commands that move the rover forward/backward (f,b).
 TEST_F(MarsRoverTest, moveForward)
 {
-	Point pointExpected(0, 1); // Initial position is (0,0) and direction is North
-							   // so a forward movement will increase Y to 1
+	Point pointExpected(0, 1); // Initial position is (0,0) and initial direction 
+							   // is North so a forward movement will increase Y 
+							   // to 1
 
-	commands.push_back('f');
+	commands.push('f');
 	theRover->SendCommands(commands);
 	theRover->ExecuteCommand();
 

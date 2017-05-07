@@ -1,3 +1,3 @@
 ﻿  mars-roverTest.cpp
-c:\users\roblesca\documents\github\training_tdd\mars-rover\mars-rovertest\mars-rovertest.cpp(81): error C2039: 'ExecuteCommand': is not a member of 'MarsRover'
-  c:\users\roblesca\documents\github\training_tdd\mars-rover\mars-rover\mars-rover.h(85): note: see declaration of 'MarsRover'
+  mars-roverTest.vcxproj -> C:\Users\roblesca\Documents\GitHub\training_tdd\mars-rover\Debug\mars-roverTest.exe
+  mars-roverTest.vcxproj -> C:\Users\roblesca\Documents\GitHub\training_tdd\mars-rover\Debug\mars-roverTest.pdb (Partial PDB)

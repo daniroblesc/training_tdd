@@ -1,5 +1,7 @@
 #pragma once
 
+#include <queue>
+
 class Point
 {
 public:
@@ -28,6 +30,11 @@ public:
 		return ((this->x == rhs.x) && (this->y == rhs.y));
 	}
 
+	void incY()
+	{
+		y++;
+	}
+
 
 private:
 
@@ -40,13 +47,13 @@ class Direction
 public:
 	Direction()
 	{
-		this->N = 0;
-		this->S = 0;
-		this->E = 0;
-		this->W = 0;
+		this->N = true;
+		this->S = false;
+		this->E = false;
+		this->W = false;
 	}
 
-	Direction(const int N, const int S, const int E, const int W)
+	Direction(const bool N, const bool S, const bool E, const bool W)
 	{
 		this->N = N;
 		this->S = S;
@@ -73,12 +80,17 @@ public:
 				(this->W == rhs.W));
 	}
 
+	bool isNorth()
+	{
+		return (N && !S && !E && !W);
+	}
+
 
 private:
-	int N;
-	int S;
-	int E;
-	int W;
+	bool N;
+	bool S;
+	bool E;
+	bool W;
 };
 
 class MarsRover
@@ -101,10 +113,24 @@ public:
 		return currentDirection;
 	}
 
-	bool SendCommands(std::vector<char>& commands)
+	bool SendCommands(std::queue<char>& commands)
 	{
 		this->commands = commands;
 		return true;
+	}
+
+	void ExecuteCommand()
+	{
+		char command = commands.front();
+		commands.pop();
+
+		if (command == 'f')
+		{
+			if (currentDirection.isNorth())
+			{
+				currentPoint.incY();
+			}
+		}
 	}
 
 
@@ -112,5 +138,5 @@ private:
 
 	Point currentPoint;
 	Direction currentDirection;
-	std::vector<char> commands;
+	std::queue<char> commands;
 };
