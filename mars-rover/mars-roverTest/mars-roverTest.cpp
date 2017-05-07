@@ -52,10 +52,10 @@ protected:
 
 TEST_F(MarsRoverTest, initialSetup)
 {
-	bool result = (theRover->getStartingPoint() == startingPoint);
+	bool result = (theRover->getPoint() == startingPoint);
 	EXPECT_EQ(result, true);
 
-	result = (theRover->getStartingDirection() == startingDirection);
+	result = (theRover->getDirection() == startingDirection);
 	EXPECT_EQ(result, true);
 }
 
@@ -66,7 +66,30 @@ TEST_F(MarsRoverTest, receiveCommands)
 	commands.push_back('b');
 
 	bool result = theRover->SendCommands(commands);
+
 	EXPECT_EQ(result, true);
 }
+
+// Implement commands that move the rover forward/backward (f,b).
+TEST_F(MarsRoverTest, moveForward)
+{
+	Point pointExpected(0, 1); // Initial position is (0,0) and direction is North
+							   // so a forward movement will increase Y to 1
+
+	commands.push_back('f');
+	theRover->SendCommands(commands);
+	theRover->ExecuteCommand();
+
+	Point pointAfterCommand = theRover->getPoint();
+
+	bool result = (pointExpected == pointAfterCommand);
+
+	EXPECT_EQ(result, true);
+}
+
+TEST_F(MarsRoverTest, moveBackward)
+{
+}
+
 
 }  // namespace

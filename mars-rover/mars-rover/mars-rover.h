@@ -86,19 +86,19 @@ class MarsRover
 public:
 	MarsRover(const Point& startingPoint, const Direction& startingDirection)
 	{
-		this->startingPoint = startingPoint;
-		this->startingDirection = startingDirection;
+		this->currentPoint = startingPoint;
+		this->currentDirection = startingDirection;
 	}
 
 
-	Point& getStartingPoint()
+	Point& getPoint()
 	{
-		return startingPoint;
+		return currentPoint;
 	}
 
-	Direction& getStartingDirection()
+	Direction& getDirection()
 	{
-		return startingDirection;
+		return currentDirection;
 	}
 
 	bool SendCommands(std::vector<char>& commands)
@@ -110,7 +110,7 @@ public:
 
 private:
 
-	Point startingPoint;
-	Direction startingDirection;
+	Point currentPoint;
+	Direction currentDirection;
 	std::vector<char> commands;
 };
