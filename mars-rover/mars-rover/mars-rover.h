@@ -50,60 +50,75 @@ private:
 class Direction
 {
 public:
+
+	typedef enum
+	{
+		NORTH,
+		SOUTH,
+		EAST,
+		WEST
+	} CardinalPoints;
+
 	Direction()
 	{
-		this->N = true;
-		this->S = false;
-		this->E = false;
-		this->W = false;
+		cardinals.insert(std::make_pair(NORTH, true));
+		cardinals.insert(std::make_pair(SOUTH, false));
+		cardinals.insert(std::make_pair(EAST, false));
+		cardinals.insert(std::make_pair(WEST, false));
 	}
 
 	Direction(const bool N, const bool S, const bool E, const bool W)
 	{
-		this->N = N;
-		this->S = S;
-		this->E = E;
-		this->W = W;
+		cardinals.insert(std::make_pair(NORTH, N));
+		cardinals.insert(std::make_pair(SOUTH, S));
+		cardinals.insert(std::make_pair(EAST, E));
+		cardinals.insert(std::make_pair(WEST, W));
 	}
-
 
 	Direction& operator= (const Direction &other)
 	{
-		this->N = other.N;
-		this->S = other.S;
-		this->E = other.E;
-		this->W = other.W;
+		this->cardinals = other.cardinals;
 
 		return *this;
 	}
 
 	bool operator==(Direction& rhs)const
 	{
-		return ((this->N == rhs.N) &&
-				(this->S == rhs.S) &&
-				(this->E == rhs.E) &&
-				(this->W == rhs.W));
+		return (this->cardinals == rhs.cardinals);
 	}
 
 	bool isNorth()
 	{
-		return (N && !S && !E && !W);
+		return (this->cardinals[NORTH] && 
+			!this->cardinals[SOUTH] && 
+			!this->cardinals[EAST] && 
+			!this->cardinals[WEST]);
 	}
 
-	void setWest()
+	
+
+	void setDirection(const CardinalPoints newDirection)
 	{
-		N = false;
-		S = false;
-		E = false;
-		W = true;
+		resetDirection();
+		cardinals[newDirection] = true;
 	}
 
 
 private:
-	bool N;
-	bool S;
-	bool E;
-	bool W;
+
+	std::map<CardinalPoints, bool> cardinals;
+
+	void resetDirection()
+	{
+		std::map<CardinalPoints, bool>::iterator it;
+		it = cardinals.begin();
+
+		while (it != cardinals.end())
+		{
+			it->second = false;
+			++it;
+		}
+	}
 };
 
 class MarsRover
@@ -159,7 +174,7 @@ public:
 		{
 			if (currentDirection.isNorth())
 			{
-				currentDirection.setWest();
+				currentDirection.setDirection(Direction::WEST);
 				result = true;
 			}
 		}
