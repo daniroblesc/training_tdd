@@ -4,5 +4,7 @@
   <TestDurations>
     <TestDuration Test="testMath.myMarsRoverTest" Duration="1" />
     <TestDuration Test="testMarsRover.initialSetup" Duration="1" />
+    <TestDuration Test="MarsRoverTest.initialSetup" Duration="1" />
+    <TestDuration Test="MarsRoverTest.arrayCommands" Duration="1" />
   </TestDurations>
 </GtaTestDurations>
